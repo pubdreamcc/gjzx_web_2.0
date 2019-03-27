@@ -31,7 +31,7 @@ export default {
         {src: '../../static/course-imgs/1534912321960.jpg', title: '你的插画会讲故事么', class: '职业基础课程'},
         {src: '../../static/course-imgs/1534916129905.jpg', title: '在玩趣中秒懂西方艺术', class: '专业基础课程'},
         {src: '../../static/course-imgs/1534990760114.jpg', title: 'SketchUI设计利器', class: '技术领域的技能'},
-        {src: '../../static/course-imgs/1535681021070.jpg', title: '0基础学绘画透视', class: '综合性专业基础课 copy'},
+        {src: '../../static/course-imgs/1535681021070.jpg', title: '0基础学绘画透视', class: '综合性专业基础课'},
         {src: '../../static/course-imgs/1507630775871.jpg', title: '电商详情页', class: '基础课'},
         {src: '../../static/course-imgs/1533890995253.jpg', title: '电商详情页', class: '基础课'}
       ]
