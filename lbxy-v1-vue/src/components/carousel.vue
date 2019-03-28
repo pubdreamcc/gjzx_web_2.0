@@ -11,6 +11,13 @@
       </el-carousel-item>
     </el-carousel>
     <img src="../assets/img/close.png" class="closeNav" :style="{display: flag}">
+    <div class="course-nav-list" ref="CoursesList">
+      <dl>
+        <dt v-text='Title'></dt>
+        <hr>
+        <dd v-for="(item, index) in content1" :key="index">{{item}}</dd>
+      </dl>
+    </div>
   </div>
 </template>
 
@@ -19,8 +26,20 @@ export default {
   name: '',
   data () {
     return {
+      Title: '公民素养',
       navs: ['立德树人', '安防学院', '农学院', '商学院', '机器学院', '电器学院', '幸福学院', '职场加油站', '建筑学院', '其他学院'],
-      flag: 'none'
+      flag: 'none',
+      content1: ['哲学与人生', '环境保护', '国学经典', '法律基础', '思想和道德', '哲学与人生', '安全教育', '紧急救助', '思想和道德', '思想和道德'],
+      content2: ['我们的深圳', '环境保护', '国学经典', '法律基础', '思想和道德', '哲学与人生', '安全教育', '紧急救助'],
+      content3: ['哲学与人生', '环境保护', '法律基础', '法律基础', '思想和道德', '哲学与人生', '安全教育', '紧急救助'],
+      content4: ['我们的深圳', '环境保护', '法律基础', '法律基础', '思想和道德', '哲学与人生', '安全教育', '紧急救助'],
+      content5: ['我们的深圳', '环境保护', '法律基础', '法律基础', '思想和道德', '哲学与人生', '安全教育', '紧急救助'],
+      content6: ['哲学与人生', '法律基础', '法律基础', '法律基础', '环境保护', '哲学与人生', '安全教育', '紧急救助'],
+      content7: ['法律基础', '法律基础', '法律基础', '法律基础', '环境保护', '哲学与人生', '安全教育', '紧急救助'],
+      content8: ['思想和道德', '环境保护', '法律基础', '法律基础', '思想和道德', '哲学与人生', '安全教育', '紧急救助'],
+      content9: ['我们的深圳', '环境保护', '国学经典', '法律基础', '思想和道德', '哲学与人生', '安全教育', '紧急救助'],
+      content10: ['哲学与人生', '环境保护', '国学经典', '法律基础', '思想和道德', '哲学与人生', '安全教育', '紧急救助'],
+      title: ['公民素养', '职业素养', '创新创业', '教育素养', '大众素养', '职业素养', '创新创业', '职业素养', '创新创业', '职业素养']
     }
   },
   components: {},
@@ -30,15 +49,28 @@ export default {
         this.flag = 'block'
       } else {
         this.flag = 'none'
+        this.$refs.CoursesList.style.display = 'none'
       }
     },
     clearStyle (ev) {
       if (ev.target.parentNode.className === 'el-dropdown-menu__item') {
         ev.target.parentNode.style.background = '#333333'
         ev.target.parentNode.style.color = '#999999'
+        this.$refs.CoursesList.style.display = 'block'
+        for (let i = 0; i < 10; i++) {
+          if (ev.path[2].children[i] === ev.target.parentNode) {
+            this.Title = this.title[i]
+          }
+        }
       } else {
         ev.target.style.background = '#333333'
-        ev.target.parentNode.style.color = '#999999'
+        ev.target.style.color = 'rgba(153, 153, 153)'
+        this.$refs.CoursesList.style.display = 'block'
+        for (let i = 0; i < 10; i++) {
+          if (ev.path[1].children[i] === ev.target) {
+            this.Title = this.title[i]
+          }
+        }
       }
     }
   }
@@ -77,9 +109,9 @@ export default {
   }
   .closeNav{
     position: absolute;
-    bottom: 277px;
+    bottom: 285px;
     left: 16.4%;
-    background: #333333;
+    background: #F0F7FE;
     cursor: pointer;
   }
   .el-carousel__arrow{
@@ -117,7 +149,7 @@ export default {
   }
   .el-dropdown-menu__item:hover{
     background: #9B9B9B !important;
-    color: white !important;
+    color: #ffffff !important;
   }
   .el-dropdown-menu__item:hover img{
     border: 1px dashed white;
@@ -143,5 +175,50 @@ export default {
   }
   .popper__arrow{
     display: none !important;
+  }
+  /* 首页轮播图上课程列表导航菜单 */
+  .course-nav-list{
+    position: absolute;
+    width: 723px;
+    background: white;
+    height: 378px;
+    left: 371px;
+    top: 63px;
+    z-index: 2;
+    display: none;
+  }
+  .course-nav-list dl hr{
+    height: 1px;
+    border: none;
+    border-top: 2px solid #EEEEEE;
+    display: inline-block;
+    width: 615px;
+    position: relative;
+    top: 8px;
+    right: -107px;
+  }
+  .course-nav-list dl dt{
+    position: absolute;
+    left: 0;
+    line-height: 26px;
+    top: 2px;
+    font-size: 16px;
+    color: #333333;
+    background: white;
+    padding: 0 25px;
+    font-weight: 600;
+  }
+  .course-nav-list dl dd{
+    float: left;
+    width: 90px;
+    height: 35px;
+    padding: 0 10px;
+    color: #999999;
+    line-height: 35px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  .course-nav-list dl dd:hover{
+    color: black;
   }
 </style>
