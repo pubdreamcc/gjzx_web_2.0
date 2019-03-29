@@ -1,5 +1,5 @@
 <template>
-   <div class="footer">
+   <div class="footer" ref="footer">
      <div class="container">
        <p class="title">国凯鲁班学院是凯文旗下专注职业技能提升的</p>
        <ul class="link">

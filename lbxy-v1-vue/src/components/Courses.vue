@@ -66,7 +66,7 @@ export default {
   }
   .courses .container .courses-list > li{
     float: left;
-    margin-right: 13px;
+    margin-right: 15px;
     margin-bottom: 17px;
     border-radius: 4px;
   }

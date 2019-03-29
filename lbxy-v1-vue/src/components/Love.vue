@@ -50,14 +50,14 @@ export default {
           return
         }
         this.i--
-        this.$refs.slideList.style.left = 217 * this.i + 'px'
+        this.$refs.slideList.style.left = 219 * this.i + 'px'
       } else {
         if (this.i === 0) {
           this.i = 0
           return
         }
         this.i++
-        this.$refs.slideList.style.left = 217 * this.i + 'px'
+        this.$refs.slideList.style.left = 219 * this.i + 'px'
       }
     }
   }
@@ -119,7 +119,7 @@ export default {
   }
   .love .container > .slide-course .course-list > li{
     float: left;
-    margin-right: 13px;
+    margin-right: 15px;
     margin-bottom: 17px;
     border-radius: 4px;
   }
