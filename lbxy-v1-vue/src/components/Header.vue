@@ -36,11 +36,27 @@
               <img src="../assets/img/二维码@2x.png">
             </div>
           </li>
-          <li><a href="javascript:;">登录/注册</a></li>
+          <li><a href="javascript:;"><span @click="dialogLoginVis=true">登录</span><span @click="dialogregisterVis=true">/注册</span></a></li>
           <li><a href="javascript:;"><img src="../assets/img/head.png"></a></li>
         </ul>
       </div>
     </div>
+    <el-dialog title="登录" :visible.sync="dialogLoginVis" append-to-body top="25vh" width="31.2%" center>
+      <div class="inputPhone">
+        <img src="../assets/img/number@3x.png">
+        <input type="text" placeholder="请输入手机号">
+      </div>
+      <div class="inputPsd">
+        <img src="../assets/img/password@3x.png">
+        <input type="text" placeholder="请输入密码">
+      </div>
+      <div class="confirm">
+      </div>
+      <p class="Tips"></p>
+      <div class="login_btn"></div>
+      <div class="bottomMsg"></div>
+    </el-dialog>
+    <el-dialog title="手机号注册" :visible.sync="dialogregisterVis" append-to-body top="25vh" width="31.2%" center></el-dialog>
   </div>
 </template>
 
@@ -49,7 +65,9 @@ export default {
   name: '',
   data () {
     return {
-      flag: false
+      flag: false,
+      dialogLoginVis: false,
+      dialogregisterVis: false
     }
   },
   components: {},
@@ -190,5 +208,24 @@ export default {
   .router-link-active{
     border-bottom: 2px solid #3246D8;
     color: #3246D8;
+  }
+  /* 登录/注册模态框样式 */
+  .el-dialog__header{
+    height: 51px;
+    width: 100%;
+    padding: 16px 0 7px;
+  }
+  .el-dialog__title{
+    font-size: 16px;
+    color: #333333;
+    line-height: 51px;
+  }
+  .el-dialog__headerbtn{
+    width: 16px;
+    height: 18px;
+    background: url('../assets/img/close01@2x.png') no-repeat center;
+  }
+  .el-dialog__headerbtn i{
+    display: none;
   }
 </style>
