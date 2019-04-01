@@ -3,9 +3,9 @@
      <div class="container">
        <p class="title">国凯鲁班学院是凯文旗下专注职业技能提升的</p>
        <ul class="link">
-         <li><a href="#/home">首页</a></li>
-         <li><a href="#/resourcecenter">资源中心</a></li>
-         <li><a href="#/live">直播</a></li>
+         <li><a href="/home">首页</a></li>
+         <li><a href="/resourcecenter">资源中心</a></li>
+         <li><a href="/live">直播</a></li>
        </ul>
        <p class="copyright">粤ICP备05065871号-45</p>
      </div>

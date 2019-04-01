@@ -1,7 +1,7 @@
 <template>
   <div class="header" ref="header">
     <div class="container">
-      <a href='#/home'>
+      <a href='/home'>
         <img src="../assets/img/logo2.png">
       </a>
       <ul class="header-nav">
