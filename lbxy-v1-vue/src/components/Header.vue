@@ -22,7 +22,12 @@
             <a href="javscript:;">保安</a>
           </div>
           <div class="search-form">
-            <input class="search-input " type="text" @focus="search" @blur="showTags">
+            <input class="search-input " type="text" @focus="search" @blur="showTags" v-model="keyWords" @input="getCourseName">
+            <div class="courseName_list" ref="courseName_list">
+              <div class="courseName_list_wrap">
+                <a href="javascript:;" v-for="(courseName, index) in courseNames" :key="index" class="courseName_list_link">{{courseName}}</a>
+              </div>
+            </div>
           </div>
           <div class="search-button">
             <img class="search-image" src="../assets/img/seaching@2x.png">
@@ -91,6 +96,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: '',
   data () {
@@ -98,16 +104,22 @@ export default {
       flag: false,
       dialogLoginVis: false,
       dialogregisterVis: false,
-      codeArr: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+      codeArr: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+      keyWords: '',
+      courseNames: []
     }
   },
   components: {},
   methods: {
     search () {
       this.$refs.searchTags.style.display = 'none'
+      this.$refs.courseName_list.style.display = 'block'
     },
     showTags () {
-      this.$refs.searchTags.style.display = 'block'
+      this.$refs.courseName_list.style.display = 'none'
+      if (this.keyWords === '') {
+        this.$refs.searchTags.style.display = 'block'
+      }
     },
     showDownload (i) {
       this.flag = i
@@ -125,6 +137,21 @@ export default {
         this.$refs.confirmCode.value = this.$refs.psdCode.value = this.$refs.phoneCode.value = ''
       } else {
         this.$refs.phoneCode2.value = this.$refs.phoneInfo.value = this.$refs.psdCode2.value = this.$refs.psdCode3.value = ''
+      }
+    },
+    getCourseName () {
+      // 发送Ajax请求
+      if (this.keyWords.trim()) {
+        this.$refs.courseName_list.style.display = 'block'
+        let URL = 'http://lgedu.gtafe.com/teach/rest/v1/course/getCourseNameByKeyword?keyword=' + this.keyWords
+        axios.get(URL).then(response => {
+          let result = response.data.data
+          this.courseNames = result
+        }).catch(error => {
+          alert('搜索失败' + error)
+        })
+      } else {
+        this.courseNames = []
       }
     }
   }
@@ -182,7 +209,7 @@ export default {
   .header .container .search .searchTags a{
     display: inline-block;
     padding: 3px 13px;
-    font-size:9px;
+    font-size:12px;
     font-family:PingFangSC-Regular;
     font-weight:400;
     color: #999;
@@ -205,6 +232,30 @@ export default {
     outline: none;
     border: none;
     height: 100%;
+    font-size: 16px;
+  }
+  .header .container .search .search-form .courseName_list{
+    display: none;
+    position: absolute;
+    top: 105%;
+    background: white;
+    max-height: 264px;
+    border-radius: 0 0 9px 9px;
+    width: 100%;
+    overflow: auto;
+  }
+  .header .container .search .search-form .courseName_list .courseName_list_wrap a{
+    height: 42px;
+    padding: 0 10px;
+    color: #666666;
+    font-size: 13px;
+    line-height: 42px;
+    text-align: left;
+    display: block;
+  }
+  .header .container .search .search-form .courseName_list .courseName_list_wrap a:hover{
+    color: #333;
+    background: #F5F5F5;
   }
   .header .container .header-login{
     display: flex;

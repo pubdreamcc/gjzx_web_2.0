@@ -6,6 +6,51 @@
          <span>> 资源中心</span>
        </div>
        <div class="coursesClassList">
+         <div class="course_item">
+           <span>精选推荐</span>
+           <ul class="course_item_list">
+             <li>理工类</li>
+             <li>商科类</li>
+             <li>通用类</li>
+             <li>演示资源</li>
+             <li>农业类</li>
+           </ul>
+         </div>
+         <div class="course_item">
+           <span>社区教育</span>
+           <ul class="course_item_list">
+             <li>职业证书类</li>
+             <li>修养爱好类</li>
+             <li>商业技能类</li>
+             <li>素质素养类</li>
+           </ul>
+         </div>
+         <div class="course_item">
+           <span>新职农专题</span>
+           <ul class="course_item_list">
+             <li>素质素养</li>
+             <li>农业服务</li>
+             <li>农业经营</li>
+             <li>农业生产</li>
+           </ul>
+         </div>
+         <div class="course_item">
+           <span>证书专题</span>
+           <ul class="course_item_list">
+             <li>眼睛考证</li>
+             <li>商科考证</li>
+             <li>安防考证</li>
+             <li>核心能力</li>
+           </ul>
+         </div>
+         <div class="course_item">
+           <span>眼镜专题</span>
+           <ul class="course_item_list">
+             <li>眼镜设计</li>
+             <li>眼镜考证</li>
+             <li>眼镜制造</li>
+           </ul>
+         </div>
        </div>
        <el-tabs tab-position="bottom" type="border-card">
         <el-tab-pane label="1">
@@ -163,6 +208,48 @@ export default {
     width: 100%;
     background: #3246D8;
     margin: 28px auto;
+    display: flex;
+  }
+  .resourceCenter .container .coursesClassList .course_item{
+    box-sizing: border-box;
+    width: 20%;
+    border-right: 3px solid rgba(255, 255, 255, .5);
+    height: 100%;
+    padding: 20px 23px;
+    cursor: pointer;
+  }
+  .resourceCenter .container .coursesClassList .course_item:nth-last-child(1){
+    border-right: none;
+  }
+  .resourceCenter .container .coursesClassList .course_item span{
+    font-size: 14px;
+    color: rgba(255,255,255,1);
+    font-family:PingFangSC-Medium;
+  }
+  .resourceCenter .container .coursesClassList .course_item .course_item_list{
+    width: 167px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 18px;
+  }
+  .resourceCenter .container .coursesClassList .course_item .course_item_list li{
+    font-size: 12px;
+    font-family: PingFangSC-Regular;
+    font-weight: 400;
+    color: rgba(255,255,255,1);
+    margin: 0 10px 8px 0;
+  }
+  .resourceCenter .container .coursesClassList .course_item:hover{
+    background-color: #fff;
+  }
+  .resourceCenter .container .coursesClassList .course_item:hover span{
+    color: #333;
+  }
+  .resourceCenter .container .coursesClassList .course_item:hover .course_item_list li{
+    color: #666;
+  }
+  .resourceCenter .container .coursesClassList .course_item .course_item_list li:hover{
+    color: #333;
   }
   .resourceCenter .el-tabs--border-card{
     border: none;
