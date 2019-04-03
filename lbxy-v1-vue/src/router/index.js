@@ -4,6 +4,7 @@ import Home from '../components/routerComponents/Home.vue'
 import Live from '../components/routerComponents/Live.vue'
 import CourseDetail from '../components/routerComponents/CourseDetail.vue'
 import ResourceCenter from '../components/routerComponents/ResourceCenter.vue'
+import SearchList from '../components/routerComponents/SearchList.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -32,6 +33,11 @@ export default new Router({
     {
       path: '/',
       redirect: '/home'
+    },
+    {
+      path: '/searchlist',
+      component: SearchList,
+      name: 'SearchList'
     }
   ]
 })

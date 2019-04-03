@@ -16,16 +16,16 @@
         </li>
       </ul>
       <div class="header-info">
-        <div class="search">
+        <div class="search" v-show="this.$route.name !== 'SearchList'">
           <div class="searchTags" ref="searchTags">
-            <a href="javscript:;">电气学院</a>
-            <a href="javscript:;">保安</a>
+            <router-link :to="{name: 'SearchList',params: {courseName: '电气学院'}}">电气学院</router-link>
+            <router-link :to="{name: 'SearchList',params: {courseName: '保安'}}">保安</router-link>
           </div>
           <div class="search-form">
-            <input class="search-input " type="text" @focus="search" @blur="showTags" v-model="keyWords" @input="getCourseName">
+            <input class="search-input " type="text" @focus="search" @blur="showTags" v-model="keyWords" @input="getCourseName" @keyup.enter="searchCourse">
             <div class="courseName_list" ref="courseName_list">
               <div class="courseName_list_wrap">
-                <a href="javascript:;" v-for="(courseName, index) in courseNames" :key="index" class="courseName_list_link">{{courseName}}</a>
+                <router-link :to="{name: 'SearchList',params: {courseName: courseName}}" v-for="(courseName, index) in courseNames" :key="index" class="courseName_list_link">{{courseName}}</router-link>
               </div>
             </div>
           </div>
@@ -116,7 +116,10 @@ export default {
       this.$refs.courseName_list.style.display = 'block'
     },
     showTags () {
-      this.$refs.courseName_list.style.display = 'none'
+      setTimeout(() => {
+        this.$refs.courseName_list.style.display = 'none'
+      }, 200)
+      // this.$refs.courseName_list.style.display = 'none'
       if (this.keyWords === '') {
         this.$refs.searchTags.style.display = 'block'
       }
@@ -152,6 +155,17 @@ export default {
         })
       } else {
         this.courseNames = []
+      }
+    },
+    searchCourse () {
+      if (this.keyWords.trim()) {
+        this.$router.push({
+          name: 'SearchList',
+          params: {
+            courseName: this.keyWords
+          }
+        })
+        this.keyWords = ''
       }
     }
   }
@@ -216,6 +230,9 @@ export default {
     line-height:13px;
     background: #F5F5F5;
     border-radius: 10px;
+  }
+  .header .container .search .searchTags a:hover{
+    color: #333;
   }
   .header .container .search .search-button{
     position: absolute;
@@ -302,7 +319,7 @@ export default {
   .header .container .header-login li:nth-child(3) a img{
     margin-top: 10px;
   }
-  .router-link-active{
+  .header-nav .router-link-active{
     border-bottom: 2px solid #3246D8;
     color: #3246D8;
   }

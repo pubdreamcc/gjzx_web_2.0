@@ -16,7 +16,7 @@ export default {
     Footer
   },
   watch: {
-    '$route': function () {
+    '$route.name': function () {
       if (this.$route.name === 'ResourceCenter') {
         this.$refs.footer.$refs.footer.style.background = '#3333331a'
         this.$refs.header.$refs.header.style.background = '#fff'
