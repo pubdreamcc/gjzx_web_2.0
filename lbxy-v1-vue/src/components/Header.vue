@@ -17,7 +17,7 @@
       </ul>
       <div class="header-info">
         <div class="search" v-show="this.$route.name !== 'SearchList'">
-          <div class="searchTags" ref="searchTags">
+          <div class="searchTags" ref="searchTags" v-show="this.keyWords.trim() === ''">
             <router-link :to="{name: 'SearchList',params: {courseName: '电气学院'}}">电气学院</router-link>
             <router-link :to="{name: 'SearchList',params: {courseName: '保安'}}">保安</router-link>
           </div>
@@ -29,7 +29,7 @@
               </div>
             </div>
           </div>
-          <div class="search-button">
+          <div class="search-button" @click="searchCourse">
             <img class="search-image" src="../assets/img/seaching@2x.png">
           </div>
         </div>
@@ -118,7 +118,7 @@ export default {
     showTags () {
       setTimeout(() => {
         this.$refs.courseName_list.style.display = 'none'
-      }, 200)
+      }, 100)
       // this.$refs.courseName_list.style.display = 'none'
       if (this.keyWords === '') {
         this.$refs.searchTags.style.display = 'block'
@@ -166,6 +166,7 @@ export default {
           }
         })
         this.keyWords = ''
+        this.$refs.searchTags.style.display = 'block'
       }
     }
   }
@@ -237,6 +238,7 @@ export default {
   .header .container .search .search-button{
     position: absolute;
     right: 0;
+    cursor: pointer;
   }
   .header .container .search .search-form{
     position: absolute;
