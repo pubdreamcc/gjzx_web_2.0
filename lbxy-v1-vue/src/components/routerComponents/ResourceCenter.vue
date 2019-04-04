@@ -307,6 +307,8 @@ export default {
     padding: 0 !important;
     width: 40px;
     text-align: center;
+    height: 40px;
+    line-height: 40px;
   }
   .resourceCenter .el-tabs__nav .el-tabs__item:hover{
     color: #D9DDE1 !important;
