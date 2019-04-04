@@ -9,101 +9,97 @@
          <div class="course_item">
            <span>精选推荐</span>
            <ul class="course_item_list">
-             <li>理工类</li>
-             <li>商科类</li>
-             <li>通用类</li>
-             <li>演示资源</li>
-             <li>农业类</li>
+             <li v-for="(major, index) in major1" :key="index" @click="searchCourseClass(major.id)">{{major.name}}</li>
            </ul>
          </div>
          <div class="course_item">
            <span>社区教育</span>
            <ul class="course_item_list">
-             <li>职业证书类</li>
-             <li>修养爱好类</li>
-             <li>商业技能类</li>
-             <li>素质素养类</li>
+             <li v-for="(major, index) in major2" :key="index" @click="searchCourseClass(major.id)">{{major.name}}</li>
            </ul>
          </div>
          <div class="course_item">
            <span>新职农专题</span>
            <ul class="course_item_list">
-             <li>素质素养</li>
-             <li>农业服务</li>
-             <li>农业经营</li>
-             <li>农业生产</li>
+             <li v-for="(major, index) in major3" :key="index" @click="searchCourseClass(major.id)">{{major.name}}</li>
            </ul>
          </div>
          <div class="course_item">
            <span>证书专题</span>
            <ul class="course_item_list">
-             <li>眼睛考证</li>
-             <li>商科考证</li>
-             <li>安防考证</li>
-             <li>核心能力</li>
+              <li v-for="(major, index) in major4" :key="index" @click="searchCourseClass(major.id)">{{major.name}}</li>
            </ul>
          </div>
          <div class="course_item">
            <span>眼镜专题</span>
            <ul class="course_item_list">
-             <li>眼镜设计</li>
-             <li>眼镜考证</li>
-             <li>眼镜制造</li>
+              <li v-for="(major, index) in major5" :key="index" @click="searchCourseClass(major.id)">{{major.name}}</li>
            </ul>
          </div>
        </div>
-       <el-tabs tab-position="bottom" type="border-card">
+       <el-tabs tab-position="bottom" type="border-card" @tab-click="changePage">
         <el-tab-pane label="1">
           <ul class="courses-list clearfix">
-            <li v-for="(course, index) in courses1" :key="index">
+            <li v-for="(course, index) in coursesList" :key="index">
               <a href="javascript:;">
-                <img :src=course.src>
-                <p class="course-title">{{course.title}}</p>
-                <p class="course-class">{{course.class}}</p>
+                <img :src="'http://lgedu.gtafe.com/img'+course.coverImg">
+                <p class="course-title">{{course.courseName}}</p>
+                <p class="course-class">{{course.majorName}}</p>
               </a>
             </li>
           </ul>
         </el-tab-pane>
         <el-tab-pane label="2">
           <ul class="courses-list clearfix">
-          <li v-for="(course, index) in courses2" :key="index">
+          <li v-for="(course, index) in coursesList" :key="index">
             <a href="javascript:;">
-              <img :src=course.src>
-              <p class="course-title">{{course.title}}</p>
-              <p class="course-class">{{course.class}}</p>
+              <img :src="'http://lgedu.gtafe.com/img'+course.coverImg">
+              <p class="course-title">{{course.courseName}}</p>
+              <p class="course-class">{{course.majorName}}</p>
             </a>
           </li>
         </ul>
         </el-tab-pane>
         <el-tab-pane label="3">
           <ul class="courses-list clearfix">
-          <li v-for="(course, index) in courses3" :key="index">
+          <li v-for="(course, index) in coursesList" :key="index">
             <a href="javascript:;">
-              <img :src=course.src>
-              <p class="course-title">{{course.title}}</p>
-              <p class="course-class">{{course.class}}</p>
+              <img :src="'http://lgedu.gtafe.com/img'+course.coverImg">
+              <p class="course-title">{{course.courseName}}</p>
+              <p class="course-class">{{course.majorName}}</p>
             </a>
           </li>
         </ul>
         </el-tab-pane>
         <el-tab-pane label="4">
           <ul class="courses-list clearfix">
-            <li v-for="(course, index) in courses4" :key="index">
+            <li v-for="(course, index) in coursesList" :key="index">
               <a href="javascript:;">
-                <img :src=course.src>
-                <p class="course-title">{{course.title}}</p>
-                <p class="course-class">{{course.class}}</p>
+                <img :src="'http://lgedu.gtafe.com/img'+course.coverImg">
+                <p class="course-title">{{course.courseName}}</p>
+                <p class="course-class">{{course.majorName}}</p>
               </a>
             </li>
           </ul>
         </el-tab-pane>
         <el-tab-pane label="5">
           <ul class="courses-list clearfix">
-            <li v-for="(course, index) in courses5" :key="index">
+            <li v-for="(course, index) in coursesList" :key="index">
               <a href="javascript:;">
-                <img :src=course.src>
-                <p class="course-title">{{course.title}}</p>
-                <p class="course-class">{{course.class}}</p>
+                <img :src="'http://lgedu.gtafe.com/img'+course.coverImg">
+                <p class="course-title">{{course.courseName}}</p>
+                <p class="course-class">{{course.majorName}}</p>
+              </a>
+            </li>
+          </ul>
+        </el-tab-pane>
+        <el-tab-pane label="6">
+          <ul class="courses-list clearfix">
+            <li v-for="(course, index) in coursesList" :key="index">
+              <a href="javascript:;">
+                <img :src="'http://lgedu.gtafe.com/img'+course.coverImg">
+                <p class="course-title">{{course.courseName}}</p>
+                <p class="course-class">{{course.majorName}}</p>
               </a>
             </li>
           </ul>
@@ -114,73 +110,65 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: '',
   data () {
     return {
-      courses1: [
-        {src: '../../static/course-imgs/1507630775871.jpg', title: '拍风光前你需要了解这…', class: '汽车制造与检修'},
-        {src: '../../static/course-imgs/1533890995253.jpg', title: '电商详情页', class: '基础课'},
-        {src: '../../static/course-imgs/1533895932933.jpg', title: '京东店铺精细化运营', class: '公共基础必修课程'},
-        {src: '../../static/course-imgs/1534911512210.jpg', title: '邵飞带你学正确的UI交…', class: '综合性专业基础课'},
-        {src: '../../static/course-imgs/1534912321960.jpg', title: '你的插画会讲故事么', class: '职业基础课程'},
-        {src: '../../static/course-imgs/1534916129905.jpg', title: '在玩趣中秒懂西方艺术', class: '专业基础课程'},
-        {src: '../../static/course-imgs/1534990760114.jpg', title: 'SketchUI设计利器', class: '技术领域的技能'},
-        {src: '../../static/course-imgs/1535681021070.jpg', title: '0基础学绘画透视', class: '综合性专业基础课'},
-        {src: '../../static/course-imgs/1507630775871.jpg', title: '电商详情页', class: '基础课'},
-        {src: '../../static/course-imgs/1533890995253.jpg', title: '电商详情页', class: '基础课'}
-      ],
-      courses2: [
-        {src: '../../static/course-imgs/1533890995253.jpg', title: '拍风光前你需要了解这…', class: '汽车制造与检修'},
-        {src: '../../static/course-imgs/1533890995253.jpg', title: '电商详情页', class: '基础课'},
-        {src: '../../static/course-imgs/1533895932933.jpg', title: '京东店铺精细化运营', class: '公共基础必修课程'},
-        {src: '../../static/course-imgs/1534911512210.jpg', title: '邵飞带你学正确的UI交…', class: '综合性专业基础课'},
-        {src: '../../static/course-imgs/1534912321960.jpg', title: '你的插画会讲故事么', class: '职业基础课程'},
-        {src: '../../static/course-imgs/1534916129905.jpg', title: '在玩趣中秒懂西方艺术', class: '专业基础课程'},
-        {src: '../../static/course-imgs/1534990760114.jpg', title: 'SketchUI设计利器', class: '技术领域的技能'},
-        {src: '../../static/course-imgs/1535681021070.jpg', title: '0基础学绘画透视', class: '综合性专业基础课'},
-        {src: '../../static/course-imgs/1507630775871.jpg', title: '电商详情页', class: '基础课'},
-        {src: '../../static/course-imgs/1533890995253.jpg', title: '电商详情页', class: '基础课'}
-      ],
-      courses3: [
-        {src: '../../static/course-imgs/1507630775871.jpg', title: '拍风光前你需要了解这…', class: '汽车制造与检修'},
-        {src: '../../static/course-imgs/1533890995253.jpg', title: '电商详情页', class: '基础课'},
-        {src: '../../static/course-imgs/1533895932933.jpg', title: '京东店铺精细化运营', class: '公共基础必修课程'},
-        {src: '../../static/course-imgs/1534911512210.jpg', title: '邵飞带你学正确的UI交…', class: '综合性专业基础课'},
-        {src: '../../static/course-imgs/1534912321960.jpg', title: '你的插画会讲故事么', class: '职业基础课程'},
-        {src: '../../static/course-imgs/1534916129905.jpg', title: '在玩趣中秒懂西方艺术', class: '专业基础课程'},
-        {src: '../../static/course-imgs/1534990760114.jpg', title: 'SketchUI设计利器', class: '技术领域的技能'},
-        {src: '../../static/course-imgs/1535681021070.jpg', title: '0基础学绘画透视', class: '综合性专业基础课'},
-        {src: '../../static/course-imgs/1507630775871.jpg', title: '电商详情页', class: '基础课'},
-        {src: '../../static/course-imgs/1533890995253.jpg', title: '电商详情页', class: '基础课'}
-      ],
-      courses4: [
-        {src: '../../static/course-imgs/1534990760114.jpg', title: '拍风光前你需要了解这…', class: '汽车制造与检修'},
-        {src: '../../static/course-imgs/1533890995253.jpg', title: '电商详情页', class: '基础课'},
-        {src: '../../static/course-imgs/1533895932933.jpg', title: '京东店铺精细化运营', class: '公共基础必修课程'},
-        {src: '../../static/course-imgs/1534911512210.jpg', title: '邵飞带你学正确的UI交…', class: '综合性专业基础课'},
-        {src: '../../static/course-imgs/1534912321960.jpg', title: '你的插画会讲故事么', class: '职业基础课程'},
-        {src: '../../static/course-imgs/1534916129905.jpg', title: '在玩趣中秒懂西方艺术', class: '专业基础课程'},
-        {src: '../../static/course-imgs/1534990760114.jpg', title: 'SketchUI设计利器', class: '技术领域的技能'},
-        {src: '../../static/course-imgs/1535681021070.jpg', title: '0基础学绘画透视', class: '综合性专业基础课'},
-        {src: '../../static/course-imgs/1507630775871.jpg', title: '电商详情页', class: '基础课'},
-        {src: '../../static/course-imgs/1533890995253.jpg', title: '电商详情页', class: '基础课'}
-      ],
-      courses5: [
-        {src: '../../static/course-imgs/1534916129905.jpg', title: '拍风光前你需要了解这…', class: '汽车制造与检修'},
-        {src: '../../static/course-imgs/1533890995253.jpg', title: '电商详情页', class: '基础课'},
-        {src: '../../static/course-imgs/1533895932933.jpg', title: '京东店铺精细化运营', class: '公共基础必修课程'},
-        {src: '../../static/course-imgs/1534911512210.jpg', title: '邵飞带你学正确的UI交…', class: '综合性专业基础课'},
-        {src: '../../static/course-imgs/1534912321960.jpg', title: '你的插画会讲故事么', class: '职业基础课程'},
-        {src: '../../static/course-imgs/1534916129905.jpg', title: '在玩趣中秒懂西方艺术', class: '专业基础课程'},
-        {src: '../../static/course-imgs/1534990760114.jpg', title: 'SketchUI设计利器', class: '技术领域的技能'},
-        {src: '../../static/course-imgs/1535681021070.jpg', title: '0基础学绘画透视', class: '综合性专业基础课'},
-        {src: '../../static/course-imgs/1507630775871.jpg', title: '电商详情页', class: '基础课'},
-        {src: '../../static/course-imgs/1533890995253.jpg', title: '电商详情页', class: '基础课'}
-      ]
+      coursesList: [],
+      major1: [{name: '理工类', id: 121}, {name: '商科类', id: 119}, {name: '通用类', id: 123}, {name: '演示资源', id: 127}, {name: '农业类', id: 122}],
+      major2: [{name: '职业证书类', id: 126}, {name: '修养爱好类', id: 125}, {name: '商业技能类', id: 124}, {name: '素质素养类', id: 99}],
+      major3: [{name: '素质素养', id: 93}, {name: '农业服务', id: 115}, {name: '农业经营', id: 114}, {name: '农业生产', id: 95}],
+      major4: [{name: '眼镜考证', id: 118}, {name: '商科考证', id: 109}, {name: '安防考证', id: 113}, {name: '核心能力', id: 112}],
+      major5: [{name: '眼镜设计', id: 116}, {name: '眼镜考证', id: 118}, {name: '眼镜制造', id: 117}]
     }
   },
-  components: {}
+  components: {},
+  methods: {
+    changePage (tab, event) {
+      // 发送Ajax请求
+      let URL = 'http://lgedu.gtafe.com/teach/rest/v1/course/queryAllCourseInfoList'
+      let pageNum = event.target.innerHTML
+      let params = new URLSearchParams()
+      params.append('institutionId', '10001')
+      params.append('pageSize', '20')
+      params.append('pageNo', pageNum)
+      axios.post(URL, params).then(response => {
+        let result = response.data.data.result
+        this.coursesList = result
+      }).catch(error => {
+        alert('分页失败' + error)
+      })
+    },
+    searchCourseClass (value) {
+      // 发送Ajax请求
+      let URL = 'http://lgedu.gtafe.com/teach/rest/v1/course/queryCoursepackagesCourse'
+      let valueStr = value.toString()
+      let params = new URLSearchParams()
+      params.append('id', valueStr)
+      params.append('pageSize', '20')
+      axios.post(URL, params).then(response => {
+        let result = response.data.data.result
+        this.coursesList = result
+      }).catch(error => {
+        alert('查询失败' + error)
+      })
+    }
+  },
+  created () {
+    // 发送Ajax请求
+    let URL = 'http://lgedu.gtafe.com/teach/rest/v1/course/queryAllCourseInfoList'
+    let params = new URLSearchParams()
+    params.append('institutionId', '10001')
+    params.append('pageSize', '20')
+    params.append('pageNo', '1')
+    axios.post(URL, params).then(response => {
+      let result = response.data.data.result
+      this.coursesList = result
+    }).catch(error => {
+      alert('分页失败' + error)
+    })
+  }
 }
 </script>
 
@@ -314,6 +302,14 @@ export default {
     border: 1px solid #D9DDE1 !important;
     margin: 0 5px !important;
     font-size: 16px;
+    transition: none;
+    color: #D9DDE1 !important;
+    padding: 0 !important;
+    width: 40px;
+    text-align: center;
+  }
+  .resourceCenter .el-tabs__nav .el-tabs__item:hover{
+    color: #D9DDE1 !important;
   }
   .resourceCenter .el-tabs__nav .is-active{
     border-color: #3246D8 !important;
