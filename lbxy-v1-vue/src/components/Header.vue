@@ -65,18 +65,18 @@
       <div class="bottomMsg">
         <div class="rememberPsd"><img src="../assets/img/agree_default@3x.png"><span>记住密码</span></div>
         <a href="javascript:;" class="forget">忘记密码</a>
-        <a href="javascript:;" class="goRegis">去注册></a>
+        <a href="javascript:;" class="goRegis" @click="goLogin(false)">去注册></a>
       </div>
     </el-dialog>
     <el-dialog title="手机号注册" :visible.sync="dialogregisterVis" append-to-body top="25vh" width="31.2%" center @closed="clearInput('register')" class="register_height">
       <div class="inputPhone">
         <img src="../assets/img/number@3x.png">
-        <input type="text" placeholder="请输入手机号" ref="phoneCode2">
+        <input type="text" placeholder="请输入手机号" ref="phoneCode2" @blur="checkPhonenumber($refs.phoneCode2.value)" @focus="inputPhonenumber">
       </div>
       <div class="inputConfirm">
-        <input type="text" placeholder="请输入短信验证码" ref='phoneInfo'>
+        <input type="text" placeholder="请输入短信验证码" ref='phoneInfo' @blur="checkMsgConfirm($refs.phoneInfo.value)" @focus="inputMsgConfirm">
       </div>
-      <input type="button" value="获取验证码" class="btn_getInfo">
+      <input type="button" value="获取验证码" class="btn_getInfo" @click="getMsgConfirm" ref="btnMsgConfirm">
       <div class="inputPsd">
         <img src="../assets/img/password@3x.png">
         <input type="text" placeholder="请输入密码" ref="psdCode2">
@@ -85,11 +85,11 @@
         <img src="../assets/img/password@3x.png">
         <input type="text" placeholder="请再次确认密码" ref="psdCode3">
       </div>
-      <p class="Tips"></p>
+      <p class="Tips" ref="registerMsgTips"></p>
       <div class="action_btn">注册</div>
       <div class="bottomMsg">
         <div class="agreeInfo"><img src="../assets/img/agree_default@3x.png"><span>我同意《服务条款》</span></div>
-        <a href="javascript:;" class="goLogin">去登录></a>
+        <a href="javascript:;" class="goLogin" @click="goLogin(true)">去登录></a>
       </div>
     </el-dialog>
   </div>
@@ -106,7 +106,8 @@ export default {
       dialogregisterVis: false,
       codeArr: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
       keyWords: '',
-      courseNames: []
+      courseNames: [],
+      Tips: ['请输入正确的手机号码', '手机号已被注册', '两次密码输入不一致', '密码格式错误，6-20位数字字母下划线', '请输入验证码']
     }
   },
   components: {},
@@ -167,6 +168,82 @@ export default {
         })
         this.keyWords = ''
         this.$refs.searchTags.style.display = 'block'
+      }
+    },
+    goLogin (flag) {
+      if (flag) {
+        // 去登录
+        this.dialogLoginVis = true
+        this.dialogregisterVis = false
+      } else {
+        // 去注册
+        this.dialogregisterVis = true
+        this.dialogLoginVis = false
+      }
+    },
+    checkPhonenumber (number) {
+      if (number) {
+        if (!(/^1[34578]\d{9}$/.test(number))) {
+          // 电话号码错误
+          this.$refs.registerMsgTips.innerHTML = this.Tips[0]
+          this.$refs.phoneCode2.style.border = '1px solid #FF5E62'
+        } else {
+          // 发送Ajax请求判断电话号码是否已经注册
+          let URL = 'http://lgedu.gtafe.com/cms/isNoMobile'
+          let numStr = number.toString()
+          let params = new URLSearchParams()
+          params.append('mobile', numStr)
+          axios.post(URL, params).then(response => {
+            let result = response.data.mess
+            if (result) {
+              this.$refs.registerMsgTips.innerHTML = this.Tips[1]
+              this.$refs.phoneCode2.style.border = '1px solid #FF5E62'
+            }
+          }).catch(error => {
+            alert('检查手机号码失败' + error)
+          })
+        }
+      }
+    },
+    inputPhonenumber () {
+      this.$refs.phoneCode2.style.border = 'none'
+      this.$refs.registerMsgTips.innerHTML = ''
+    },
+    checkMsgConfirm (value) {
+      if (!value) {
+        this.$refs.registerMsgTips.innerHTML = this.Tips[4]
+        this.$refs.phoneInfo.style.border = '1px solid #FF5E62'
+      }
+    },
+    inputMsgConfirm () {
+      this.$refs.registerMsgTips.innerHTML = ''
+      this.$refs.phoneInfo.style.border = 'none'
+    },
+    getMsgConfirm () {
+      // 获取短信验证码
+      if (this.$refs.phoneCode2.style.border === 'none' && this.$refs.phoneCode2.value) {
+        // 发送Ajax请求获取短信验证码
+        let URL = 'http://lgedu.gtafe.com/cms/sendAliMsg'
+        let PhoneNum = this.$refs.phoneCode2.value.toString()
+        let params = new URLSearchParams()
+        params.append('mobile', PhoneNum)
+        let time = 60
+        axios.post(URL, params).then(response => {
+          this.$refs.btnMsgConfirm.disabled = true
+          let timer = setInterval(() => {
+            time--
+            if (time >= 0) {
+              this.$refs.btnMsgConfirm.value = time + 's'
+            } else {
+              time = 60
+              this.$refs.btnMsgConfirm.disabled = false
+              this.$refs.btnMsgConfirm.value = '重新发送'
+              clearInterval(timer)
+            }
+          }, 1000)
+        }).catch(error => {
+          alert('发送短信验证码失败' + error)
+        })
       }
     }
   }
