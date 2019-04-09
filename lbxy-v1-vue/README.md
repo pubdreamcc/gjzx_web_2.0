@@ -1,6 +1,6 @@
 # lbxy-v2-vue
 
-> lbxy-vue-project
+> 项目是国凯在线旗下鲁班学院的在线学习平台，项目中用到的技术栈：vue+axios+vue-router+element-ui
 
 ## Build Setup
 

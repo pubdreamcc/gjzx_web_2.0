@@ -53,7 +53,7 @@
       </div>
       <div class="inputPsd">
         <img src="../assets/img/password@3x.png">
-        <input type="text" placeholder="请输入密码" ref="psdCode">
+        <input type="password" placeholder="请输入密码" ref="psdCode">
       </div>
       <div class="confirm">
         <input type="text" class="confirmCode" placeholder="请输入验证码" ref="confirmCode">
@@ -61,7 +61,7 @@
         <span class="change" @click="changeCode">看不清，换一换</span>
       </div>
       <p class="Tips"></p>
-      <div class="action_btn">登录</div>
+      <div class="action_btn" ref="action_btn">登录</div>
       <div class="bottomMsg">
         <div class="rememberPsd"><img src="../assets/img/agree_default@3x.png"><span>记住密码</span></div>
         <a href="javascript:;" class="forget">忘记密码</a>
@@ -79,16 +79,16 @@
       <input type="button" value="获取验证码" class="btn_getInfo" @click="getMsgConfirm" ref="btnMsgConfirm">
       <div class="inputPsd">
         <img src="../assets/img/password@3x.png">
-        <input type="text" placeholder="请输入密码" ref="psdCode2">
+        <input type="password" placeholder="请输入密码" ref="psdCode2" @blur="checkPsd($refs.psdCode2.value)" @focus="inputPsdMsg">
       </div>
       <div class="inputPsd">
         <img src="../assets/img/password@3x.png">
-        <input type="text" placeholder="请再次确认密码" ref="psdCode3">
+        <input type="password" placeholder="请再次确认密码" ref="psdCode3" @focus="inputPsdMsg2" @blur="checkPsdEqual($refs.psdCode3.value)">
       </div>
       <p class="Tips" ref="registerMsgTips"></p>
-      <div class="action_btn">注册</div>
+      <div class="action_btn" @click="gotoRegister" ref="action_btn2">注册</div>
       <div class="bottomMsg">
-        <div class="agreeInfo"><img src="../assets/img/agree_default@3x.png"><span>我同意《服务条款》</span></div>
+        <div class="agreeInfo" @click="toggleIMg"><img src="../assets/img/agree_default@3x.png" ref="agree_default"><span>我同意《服务条款》</span></div>
         <a href="javascript:;" class="goLogin" @click="goLogin(true)">去登录></a>
       </div>
     </el-dialog>
@@ -107,7 +107,8 @@ export default {
       codeArr: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
       keyWords: '',
       courseNames: [],
-      Tips: ['请输入正确的手机号码', '手机号已被注册', '两次密码输入不一致', '密码格式错误，6-20位数字字母下划线', '请输入验证码']
+      Tips: ['请输入正确的手机号码', '手机号已被注册', '两次密码输入不一致', '密码格式错误，6-20位数字字母下划线', '请输入验证码', '请阅读并同意服务条款'],
+      ImgSrc: ['http://lgedu.gtafe.com:80/img/agree@3x.png', 'http://lgedu.gtafe.com:80/img/agree_default@3x.png']
     }
   },
   components: {},
@@ -141,6 +142,7 @@ export default {
         this.$refs.confirmCode.value = this.$refs.psdCode.value = this.$refs.phoneCode.value = ''
       } else {
         this.$refs.phoneCode2.value = this.$refs.phoneInfo.value = this.$refs.psdCode2.value = this.$refs.psdCode3.value = ''
+        this.$refs.action_btn2.style.background = ''
       }
     },
     getCourseName () {
@@ -244,6 +246,61 @@ export default {
         }).catch(error => {
           alert('发送短信验证码失败' + error)
         })
+      }
+    },
+    checkPsd (value) {
+      if (value) {
+        if (!(/^[0-9A-Za-z]{6,20}$/.test(value))) {
+          // 密码输入不正确
+          this.$refs.psdCode2.style.border = '1px solid #FF5E62'
+          this.$refs.registerMsgTips.innerHTML = this.Tips[3]
+        }
+      }
+    },
+    inputPsdMsg () {
+      this.$refs.psdCode2.style.border = 'none'
+      this.$refs.registerMsgTips.innerHTML = ''
+    },
+    checkPsdEqual (value) {
+      if (value) {
+        // 判断前后两次密码输入是否相同
+        if (!(value === this.$refs.psdCode2.value)) {
+          // 密码不相同
+          this.$refs.psdCode3.style.border = '1px solid #FF5E62'
+          this.$refs.registerMsgTips.innerHTML = this.Tips[2]
+        }
+      }
+    },
+    inputPsdMsg2 () {
+      this.$refs.psdCode3.style.border = 'none'
+      this.$refs.registerMsgTips.innerHTML = ''
+    },
+    gotoRegister () {
+      if (this.$refs.agree_default.src === 'http://lgedu.gtafe.com/img/agree@3x.png' && this.$refs.registerMsgTips.innerHTML === '' && this.$refs.phoneCode2.value && this.$refs.phoneInfo.value && this.$refs.psdCode2.value === this.$refs.psdCode3.value && this.$refs.psdCode3.value && /^1[34578]\d{9}$/.test(this.$refs.phoneCode2.value) && /^[0-9A-Za-z]{6,20}$/.test(this.$refs.psdCode2.value)) {
+        this.$refs.action_btn2.style.background = '#3246D8'
+        // 注册成功
+        // 发送Ajax请求注册用户
+        let URL = 'http://lgedu.gtafe.com/cms/registUser'
+        let obj = {mobile: this.$refs.phoneCode2.value, userPassword: this.$refs.psdCode2.value, code: this.$refs.phoneInfo.value}
+        let params = new URLSearchParams()
+        params.append('params', JSON.stringify(obj))
+        axios.post(URL, params).then(response => {
+          let result = response.data.msg
+          this.$refs.registerMsgTips.innerHTML = result
+        }).catch(error => {
+          alert('注册失败' + error)
+        })
+      } else {
+        // 提示勾选相关服务政策
+        this.$refs.registerMsgTips.innerHTML = this.Tips[5]
+      }
+    },
+    toggleIMg () {
+      if (this.$refs.agree_default.src === 'http://lgedu.gtafe.com/img/agree@3x.png') {
+        this.$refs.agree_default.src = this.ImgSrc[1]
+      } else {
+        this.$refs.agree_default.src = this.ImgSrc[0]
+        this.$refs.registerMsgTips.innerHTML = ''
       }
     }
   }
@@ -537,7 +594,7 @@ export default {
     border-radius: 3px;
     font-size: 16px;
     color: white;
-    background: #3246D8;
+    background: gray;
     margin-top: 4px;
     cursor: pointer;
   }
